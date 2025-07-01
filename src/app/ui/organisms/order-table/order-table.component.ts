@@ -4,23 +4,26 @@ import { firstValueFrom } from 'rxjs';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
-import { ApiService } from '../../services/api.service';
-import { Order } from '../../models/order.model';
+import { ApiService } from '../../../services/api.service';
+import { Order } from '../../../models/order.model';
 import { ConfirmModalComponent } from '../../modals/remove-confirm-modal/remove-confirm-modal.component';
 import { CreateItemModalComponent } from '../../modals/create-item-modal/create-item-modal.component';
+import { PaginatorComponent } from '../../../shared/paginator/paginator.component';
+import { PaginatedComponent } from '../../../shared/base/paginated.component';
 @Component({
   selector: 'app-order-table',
   standalone: true,
-  imports: [CommonModule, NgbModule, FormsModule],
+  imports: [CommonModule, NgbModule, FormsModule, PaginatorComponent],
   templateUrl: './order-table.component.html',
   styleUrls: ['./order-table.component.scss'],
 })
-export class OrderTableComponent {
+export class OrderTableComponent extends PaginatedComponent<Order> {
   orders: Signal<Order[]>;
 
   constructor(private api: ApiService, 
               private modalService: NgbModal,
               private translateService: TranslateService) {
+    super();
     this.orders = this.api.orders;
   }  
                 
@@ -53,4 +56,10 @@ export class OrderTableComponent {
       })
       .catch(() => {});
     }
+ 
+    getItems(): Order[] {
+      return this.orders();
+    }
+
+
 }

@@ -3,24 +3,27 @@ import { CommonModule } from '@angular/common';
 import { firstValueFrom } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Payment } from '../../models/payment.model';
-import { ApiService } from '../../services/api.service';
+import { Payment } from '../../../models/payment.model';
+import { ApiService } from '../../../services/api.service';
 import { ConfirmModalComponent } from '../../modals/remove-confirm-modal/remove-confirm-modal.component';
 import { CreateItemModalComponent } from '../../modals/create-item-modal/create-item-modal.component';
+import { PaginatorComponent } from '../../../shared/paginator/paginator.component';
+import { PaginatedComponent } from '../../../shared/base/paginated.component';
 
 @Component({
   selector: 'app-payment-table',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, PaginatorComponent],
   templateUrl: './payment-table.component.html',
   styleUrls: ['./payment-table.component.scss'],
 })
-export class PaymentTableComponent {
+export class PaymentTableComponent extends PaginatedComponent<Payment> {
   payments: Signal<Payment[]>;
-  
+
   constructor(private api: ApiService, 
               private modalService: NgbModal,
               private translateService: TranslateService) {
+    super();
     this.payments = this.api.payments;    
   }
 
@@ -50,4 +53,9 @@ export class PaymentTableComponent {
       })
       .catch(() => {});
     }
+
+    getItems(): Payment[] {
+      return this.payments();
+    }
+
 }

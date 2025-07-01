@@ -1,9 +1,9 @@
 import { Component, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { ApiService } from '../../services/api.service';
+import { ApiService } from '../../../services/api.service';
 import { NgxEchartsModule, NGX_ECHARTS_CONFIG } from 'ngx-echarts';
-import { StatsService } from '../../services/stats.services';
+import { StatsService } from '../../../services/stats.services';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,6 +21,8 @@ import { StatsService } from '../../services/stats.services';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardPage {
+  
+  constructor(private api: ApiService, public stats: StatsService) {}
   
   chartOptions = {
     title: {
@@ -41,5 +43,4 @@ export class DashboardPage {
   };
 
 
-  constructor(private api: ApiService, public stats: StatsService) {}
 }

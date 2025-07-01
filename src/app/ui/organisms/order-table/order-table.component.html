@@ -15,7 +15,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let order of orders()">
+    <tr *ngFor="let order of paginated">
       <td>{{ order.id }}</td>
       <td>{{ order.product }}</td>
       <td>{{ order.quantity }}</td>
@@ -28,4 +28,9 @@
     </tr>
   </tbody>
 </table>
-
+<app-paginator
+  [totalItems]="orders().length"
+  [pageSize]="pageSize"
+  [currentPage]="currentPage"
+  (pageChange)="onPageChange($event)"
+></app-paginator>

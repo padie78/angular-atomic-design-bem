@@ -8,13 +8,12 @@
       <th>id</th>
       <th>fecha</th>
       <th>amount</th>
-      <th>status</th>
       <th>method</th>
       <th></th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let payment of payments()">
+    <tr *ngFor="let payment of paginated">
       <td>{{ payment.id }}</td>
       <td>{{ payment.date ? (payment.date | date:'shortDate') : '-' }}</td>
       <td>{{ payment.amount | currency }}</td>
@@ -26,3 +25,9 @@
     </tr>
   </tbody>
 </table>
+<app-paginator
+  [totalItems]="payments().length"
+  [pageSize]="pageSize"
+  [currentPage]="currentPage"
+  (pageChange)="onPageChange($event)"
+></app-paginator>

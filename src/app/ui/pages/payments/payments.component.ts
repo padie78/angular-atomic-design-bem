@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { PaymentTableComponent } from '../../organisms/payment-table/payment-table.component';
+import { PaymentTableComponent } from '../../../ui/organisms/payment-table/payment-table.component';
 
 @Component({
   selector: 'app-payments-page',
