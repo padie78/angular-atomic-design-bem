@@ -4,6 +4,7 @@ import { ApiService } from '../../services/api.service';
 import { Order } from '../../models/order.model';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import { ConfirmModalComponent } from '../../modals/remove-confirm-modal/remove-confirm-modal.component';
 
 @Component({
   selector: 'app-order-table',
@@ -22,27 +23,7 @@ export class OrderTableComponent {
     { label: 'cancelled', value: 'cancelled' }
   ];
 
-  constructor(private api: ApiService, private modalService: NgbModal) {}
-
-  get totalAmount(): number {
-    return this.orders().reduce((sum, order) => sum + order.price * order.quantity, 0);
-  }
-
-  deleteOrder(order: Order) {
-    this.api.deleteOrder(order.id);
-  }
-  
-  openConfirmModal(content: any, order: Order) {
-    this.orderToDelete = order;
-
-    this.modalService.open(content).result.then((result) => {
-      if (result === 'yes' && this.orderToDelete) {
-        this.api.deleteOrder(this.orderToDelete.id);
-      }
-    }, () => {
-      // dismissed
-    });    
-  }
+  constructor(private api: ApiService, private modalService: NgbModal) {}  
 
   onRowEditInit(order: Order) {
     this.editingRow = { ...order };
@@ -55,7 +36,14 @@ export class OrderTableComponent {
     }
   }
 
-  onRowEditCancel() {
-    this.editingRow = null;
+  openDeleteModal(order: Order) {
+    const modalRef = this.modalService.open(ConfirmModalComponent);
+    modalRef.componentInstance.title = 'Removing Confirm';
+    modalRef.componentInstance.message = `¿Do you want to remove ${order.product}?`;
+    modalRef.result.then((confirmed: boolean) => {
+        if (confirmed) {
+          this.api.deleteOrder(order.id);
+        }
+    });  
   }
 }

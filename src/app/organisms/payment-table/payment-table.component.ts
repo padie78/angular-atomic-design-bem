@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api.service';
 import { Payment } from '../../models/payment.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmModalComponent } from '../../modals/remove-confirm-modal/remove-confirm-modal.component';
 
 @Component({
   selector: 'app-payment-table',
@@ -23,15 +24,14 @@ export class PaymentTableComponent {
     );
   }
 
-    openConfirmModal(content: any, payment: Payment) {
-      this.paymentToDelete = payment;
-  
-      this.modalService.open(content).result.then((result) => {
-        if (result === 'yes' && this.paymentToDelete) {
-          this.api.deletePayment(this.paymentToDelete.id);
-        }
-      }, () => {
-        // dismissed
-      });    
+  openDeleteModal(payment: Payment) {
+      const modalRef = this.modalService.open(ConfirmModalComponent);
+      modalRef.componentInstance.title = 'Removing Confirm';
+      modalRef.componentInstance.message = `¿Do you want to remove ${payment.id}?`;
+      modalRef.result.then((confirmed: boolean) => {
+          if (confirmed) {
+            this.api.deletePayment(payment.id);
+          }
+      });  
     }
 }

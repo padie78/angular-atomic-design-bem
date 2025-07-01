@@ -3,15 +3,15 @@
       <div class="stats">
         <div class="card">
           <h3>Pedidos</h3>
-          <p>{{ totalOrders() }}</p>
+          <p>{{ stats.totalOrders() }}</p>
         </div>
         <div class="card">
           <h3>Pagos</h3>
-          <p>{{ totalPayments() }}</p>
+          <p>{{ stats.totalPayments() }}</p>
         </div>
         <div class="card">
           <h3>Ingresos</h3>
-          <p>{{ totalAmount() | currency:'USD':'symbol':'1.2-2' }}</p>
+          <p>{{ stats.totalAmount() | currency:'USD':'symbol':'1.2-2' }}</p>
         </div>
       </div>
       <br>

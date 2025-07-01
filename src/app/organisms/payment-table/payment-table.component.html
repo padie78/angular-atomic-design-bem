@@ -17,23 +17,8 @@
       <td>{{ payment.status }}</td>
       <td>{{ payment.method  }}</td>
       <td class="d-flex justify-content-end">
-        <button class="btn btn-danger btn-sm" (click)="openConfirmModal(confirmModal, payment)">Remove</button>
+        <button class="btn btn-danger btn-sm" (click)="openDeleteModal(payment)">Remove</button>
       </td>
     </tr>
   </tbody>
 </table>
-
-<!-- Modal -->
-<ng-template #confirmModal let-modal>
-  <div class="modal-header">
-    <h5 class="modal-title">Confirm removing</h5>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
-  </div>
-  <div class="modal-body">
-    <p>¿Do you want to remove the payment {{ paymentToDelete?.id }}?</p>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">No</button>
-    <button type="button" class="btn btn-danger" (click)="modal.close('yes')">Yes, confirm</button>
-  </div>
-</ng-template>
