@@ -1,9 +1,12 @@
-import { Component, computed, Signal, WritableSignal, ɵunwrapWritableSignal } from '@angular/core';
+import { Component, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ApiService } from '../../services/api.service';
-import { Payment } from '../../models/payment.model';
+import { firstValueFrom } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Payment } from '../../models/payment.model';
+import { ApiService } from '../../services/api.service';
 import { ConfirmModalComponent } from '../../modals/remove-confirm-modal/remove-confirm-modal.component';
+import { CreateItemModalComponent } from '../../modals/create-item-modal/create-item-modal.component';
 
 @Component({
   selector: 'app-payment-table',
@@ -13,25 +16,38 @@ import { ConfirmModalComponent } from '../../modals/remove-confirm-modal/remove-
   styleUrls: ['./payment-table.component.scss'],
 })
 export class PaymentTableComponent {
-  paymentToDelete: Payment | null = null;
-  payments: WritableSignal<Payment[]>;
-  totalAmount: Signal<number>;
+  payments: Signal<Payment[]>;
   
-  constructor(private api: ApiService, private modalService: NgbModal) {
-    this.payments = this.api.payments;
-    this.totalAmount = computed(() =>
-      this.payments().reduce((sum, p) => sum + p.amount, 0)
-    );
+  constructor(private api: ApiService, 
+              private modalService: NgbModal,
+              private translateService: TranslateService) {
+    this.payments = this.api.payments;    
   }
 
   openDeleteModal(payment: Payment) {
-      const modalRef = this.modalService.open(ConfirmModalComponent);
-      modalRef.componentInstance.title = 'Removing Confirm';
-      modalRef.componentInstance.message = `¿Do you want to remove ${payment.id}?`;
-      modalRef.result.then((confirmed: boolean) => {
-          if (confirmed) {
-            this.api.deletePayment(payment.id);
-          }
-      });  
+    const modalRef = this.modalService.open(ConfirmModalComponent);
+    modalRef.componentInstance.title = this.translateService.instant('MODAL.TITLE');;
+    modalRef.componentInstance.message = this.translateService.instant('MODAL.MESSAGE', { id: payment.id });
+    modalRef.result.then((confirmed: boolean) => {
+        if (confirmed) {
+          this.api.deletePayment(payment.id);
+        }
+    });  
+  }
+
+  openPaymentModal() {        
+    const modalRef = this.modalService.open(CreateItemModalComponent);
+    modalRef.componentInstance.title = 'New Payment';
+    modalRef.componentInstance.fields = [
+      { name: 'amount', label: 'Amount', type: 'number' }
+    ];
+    modalRef.componentInstance.onSubmit = (data: Payment) => firstValueFrom(this.api.createPayment(data));
+    modalRef.result
+      .then(result => {
+        if (result === true) {
+          this.api.fetchPayments();
+        }
+      })
+      .catch(() => {});
     }
 }

@@ -2,13 +2,13 @@ import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Order } from '../models/order.model';
 import { Payment } from '../models/payment.model';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
   private ORDER_URL = '/api/orders';
   private PAYMENT_URL = '/api/payments';
-
-  public orders = signal<Order[]>([]);
+  orders = signal<Order[]>([]);
   payments = signal<Payment[]>([]);
 
   constructor(private http: HttpClient) {
@@ -16,28 +16,22 @@ export class ApiService {
     this.fetchPayments();
   }
 
-  private fetchOrders() {
+  fetchOrders() {
     this.http.get<Order[]>('https://6862ba6d96f0cc4e34bac94f.mockapi.io/orders')
       .subscribe(data => this.orders.set(data));
   }
 
-  private fetchPayments() {
+  fetchPayments() {
     this.http.get<Payment[]>('https://6862ba6d96f0cc4e34bac94f.mockapi.io/payments')
       .subscribe(data => this.payments.set(data));
   }
 
-  createOrder(order: Order) {
-    this.http.post<Order>('https://6862ba6d96f0cc4e34bac94f.mockapi.io/orders', order)
-      .subscribe(created => {
-        this.orders.update(list => [...list, created]);
-      });
-  }
+   createOrder(order: Order): Observable<Order> {
+      return this.http.post<Order>('https://6862ba6d96f0cc4e34bac94f.mockapi.io/orders', order);
+    }
 
-  createPayment(payment: Payment) {
-    this.http.post<Payment>('https://6862ba6d96f0cc4e34bac94f.mockapi.io/payments', payment)
-      .subscribe(created => {
-        this.payments.update(list => [...list, created]);
-      });
+    createPayment(payment: Payment): Observable<Payment> {
+      return this.http.post<Payment>('https://6862ba6d96f0cc4e34bac94f.mockapi.io/payments', payment);
     }
 
     deleteOrder(id: string) {

@@ -1,0 +1,8 @@
+{
+  "MODAL": {
+    "TITLE": "Removing confirmation",
+    "MESSAGE": "¿do you want to remove item ID {{id}}?",
+    "CONFIRM": "Yes, remove",
+    "CANCEL": "Cancel"
+  }
+}
