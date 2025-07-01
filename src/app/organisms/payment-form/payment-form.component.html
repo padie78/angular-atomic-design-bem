@@ -1,0 +1,18 @@
+   <section>
+      <h2>Crear Pago</h2>
+      <form (ngSubmit)="submit()">
+        <input [(ngModel)]="amount" name="amount" type="number" placeholder="Monto" />
+        <select [(ngModel)]="method" name="method">
+          <option value="credit_card">Tarjeta de crédito</option>
+          <option value="paypal">PayPal</option>
+          <option value="cash">Efectivo</option>
+          <option value="bank_transfer">Transferencia bancaria</option>
+        </select>        
+        <select [(ngModel)]="status" name="status">
+          <option value="pending">Pendiente</option>
+          <option value="completed">Completado</option>
+          <option value="failed">Fallido</option>
+        </select>
+        <button type="submit">Crear</button>
+      </form>
+    </section>

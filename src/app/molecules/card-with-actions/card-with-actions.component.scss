@@ -1,0 +1,20 @@
+.m-card-actions {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 6px;
+  background-color: #fff;
+}
+
+.m-card-actions .actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.m-card-actions .actions button {
+  min-width: 80px;
+}

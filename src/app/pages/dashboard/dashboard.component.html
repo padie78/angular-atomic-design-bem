@@ -1,0 +1,23 @@
+    <section class="dashboard">
+      <h2>Resumen</h2>
+      <div class="stats">
+        <div class="card">
+          <h3>Pedidos</h3>
+          <p>{{ totalOrders() }}</p>
+        </div>
+        <div class="card">
+          <h3>Pagos</h3>
+          <p>{{ totalPayments() }}</p>
+        </div>
+        <div class="card">
+          <h3>Ingresos</h3>
+          <p>{{ totalAmount() | currency }}</p>
+        </div>
+      </div>
+      <div echarts [options]="chartOptions" class="demo-chart" style="height: 400px;"></div>
+
+      <div class="actions">
+        <a routerLink="/orders" class="btn">Pedidos</a>
+        <a routerLink="/payments" class="btn">Pagos</a>
+      </div>
+    </section>

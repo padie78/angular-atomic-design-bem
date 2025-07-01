@@ -1,0 +1,11 @@
+.m-form-field {
+  display: block;
+  margin-bottom: 1rem;  /* espacio debajo para separar campos */
+}
+
+.m-form-field app-label {
+  display: block;
+  margin-bottom: 0.375rem;
+  font-weight: 500;
+  color: #212529; /* color texto Bootstrap estándar */
+}

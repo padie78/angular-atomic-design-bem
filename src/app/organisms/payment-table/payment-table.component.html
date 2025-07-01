@@ -1,0 +1,13 @@
+<tr *ngFor="let payment of payments()">
+  <td>{{ payment.id }}</td>
+  <td>{{ payment.amount | currency }}</td>
+  <td>{{ payment.date | date: 'short' }}</td>
+  <td>{{ payment.status }}</td>
+  <td>{{ payment.method }}</td>
+</tr>
+<tfoot>
+  <tr>
+    <td><strong>Total</strong></td>
+    <td colspan="4">{{ totalAmount() | currency }}</td>
+  </tr>
+</tfoot>
