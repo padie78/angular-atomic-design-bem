@@ -5,5 +5,5 @@ export interface Payment {
   amount: number;
   date: Date;
   status: 'pending' | 'completed' | 'failed';
-  method: PaymentMethod;
+  method: 'credit_card' | 'paypal' | 'cash' | 'bank_transfer';
 }

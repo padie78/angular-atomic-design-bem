@@ -13,16 +13,16 @@ export class ApiService {
 
   constructor(private http: HttpClient) {
     this.fetchOrders();
-    // this.fetchPayments();
+    this.fetchPayments();
   }
 
   private fetchOrders() {
     this.http.get<Order[]>('https://6862ba6d96f0cc4e34bac94f.mockapi.io/orders')
-      .subscribe(data => {console.log(data) ;this.orders.set(data)});
+      .subscribe(data => this.orders.set(data));
   }
 
   private fetchPayments() {
-    this.http.get<Payment[]>(this.PAYMENT_URL)
+    this.http.get<Payment[]>('https://6862ba6d96f0cc4e34bac94f.mockapi.io/payments')
       .subscribe(data => this.payments.set(data));
   }
 
@@ -34,7 +34,7 @@ export class ApiService {
   }
 
   createPayment(payment: Payment) {
-    this.http.post<Payment>(this.PAYMENT_URL, payment)
+    this.http.post<Payment>('https://6862ba6d96f0cc4e34bac94f.mockapi.io/payments', payment)
       .subscribe(created => {
         this.payments.update(list => [...list, created]);
       });
@@ -52,6 +52,12 @@ export class ApiService {
           order.id === id ? { ...order, ...updated } : order
         );
         this.orders.set(updatedList);
+      });
+    }
+
+      deletePayment(id: string) {
+      this.http.delete(`https://6862ba6d96f0cc4e34bac94f.mockapi.io/payments/${id}`).subscribe(() => {
+        this.fetchPayments(); // recargar lista actualizada
       });
     }
   }

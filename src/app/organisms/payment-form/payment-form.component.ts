@@ -1,32 +1,53 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from '../../services/api.service';
-import { PaymentMethod } from '../../models/payment.model';
+import { FormFieldComponent } from '../../molecules/form-field/form-field.component';
+import { ButtonComponent } from '../../atoms/button/button.component';
+import { InputComponent } from '../../atoms/input/input.component';
+import { Payment } from '../../models/payment.model';
 
 @Component({
-  standalone: true,
   selector: 'app-payment-form',
-  imports: [CommonModule, FormsModule],
-  templateUrl: './payment-form.Component.html'
+  standalone: true,
+  imports: [CommonModule, FormFieldComponent, ButtonComponent, InputComponent, FormsModule, NgbAlertModule],
+  templateUrl: './payment-form.component.html',
+  styleUrls: ['./payment-form.component.scss'],
 })
 export class PaymentFormComponent {
-  amount = 0;
-  method: PaymentMethod = 'credit_card';
-  status: 'pending' | 'completed' | 'failed' = 'pending';
-
-
-  constructor(private api: ApiService, private router: Router) {}
+  amount = signal(1);
+  date = signal(new Date);
+  showSuccess = false;
+  
+  constructor(private api: ApiService) {}
 
   submit() {
+    if (!this.amount()) {
+      alert('Por favor, completa todos los campos correctamente.');
+      return;
+    }
+
     this.api.createPayment({
-      id: crypto.randomUUID(),
-      amount: this.amount,
-      date: new Date(),
-      method: this.method,
-      status: this.status
+      id: this.generateId(),
+      amount: this.amount(),
+      date: this.date(),
+      status: 'pending',
+      method: 'credit_card'
     });
-    this.router.navigateByUrl('/');
+
+      this.showSuccess = true;
+
+    // Limpiar formulario
+    this.amount.set(1);
+
+    setTimeout(() => {
+      this.showSuccess = false;
+    }, 3000);
+  }
+
+  private generateId(): string {
+    // Genera un ID simple (puedes usar uuid o similar)
+    return Math.random().toString(36).substr(2, 9);
   }
 }

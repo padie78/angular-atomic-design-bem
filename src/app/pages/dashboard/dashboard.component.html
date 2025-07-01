@@ -11,9 +11,10 @@
         </div>
         <div class="card">
           <h3>Ingresos</h3>
-          <p>{{ totalAmount() | currency }}</p>
+          <p>{{ totalAmount() | currency:'USD':'symbol':'1.2-2' }}</p>
         </div>
       </div>
+      <br>
       <div echarts [options]="chartOptions" class="demo-chart" style="height: 400px;"></div>
 
       <div class="actions">

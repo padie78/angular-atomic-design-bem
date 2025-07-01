@@ -1,13 +1,39 @@
-<tr *ngFor="let payment of payments()">
-  <td>{{ payment.id }}</td>
-  <td>{{ payment.amount | currency }}</td>
-  <td>{{ payment.date | date: 'short' }}</td>
-  <td>{{ payment.status }}</td>
-  <td>{{ payment.method }}</td>
-</tr>
-<tfoot>
-  <tr>
-    <td><strong>Total</strong></td>
-    <td colspan="4">{{ totalAmount() | currency }}</td>
-  </tr>
-</tfoot>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>fecha</th>
+      <th>amount</th>
+      <th>status</th>
+      <th>method</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let payment of payments()">
+      <td>{{ payment.id }}</td>
+      <td>{{ payment.date ? (payment.date | date:'shortDate') : '-' }}</td>
+      <td>{{ payment.amount | currency }}</td>
+      <td>{{ payment.status }}</td>
+      <td>{{ payment.method  }}</td>
+      <td class="d-flex justify-content-end">
+        <button class="btn btn-danger btn-sm" (click)="openConfirmModal(confirmModal, payment)">Remove</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Modal -->
+<ng-template #confirmModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Confirm removing</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <p>¿Do you want to remove the payment {{ paymentToDelete?.id }}?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">No</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('yes')">Yes, confirm</button>
+  </div>
+</ng-template>

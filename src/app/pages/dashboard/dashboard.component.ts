@@ -23,11 +23,13 @@ export class DashboardPage {
   totalOrders = computed(() => this.api.orders().length);
   totalPayments = computed(() => this.api.payments().length);
   totalAmount = computed(() =>
-    this.api.payments().reduce((sum, p) => sum + p.amount, 0)
+  this.api.payments()
+    .reduce((sum, p) => sum + (Number(p.amount) || 0), 0)
   );
+  
   chartOptions = {
     title: {
-      text: 'Ventas',
+      text: 'Orders',
     },
     tooltip: {},
     xAxis: {
