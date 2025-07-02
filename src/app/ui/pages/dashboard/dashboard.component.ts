@@ -5,11 +5,12 @@ import { ApiService } from '../../../services/api.service';
 import { NgxEchartsModule, NGX_ECHARTS_CONFIG } from 'ngx-echarts';
 import { StatsService } from '../../../services/stats.services';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { BasePageComponent } from '../../../shared/layouts/base-page/base-page.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule, NgxEchartsModule, TranslateModule],
+  imports: [CommonModule, RouterModule, BasePageComponent, NgxEchartsModule, TranslateModule],
   providers: [
     {
       provide: NGX_ECHARTS_CONFIG,
