@@ -4,5 +4,29 @@
     "MESSAGE": "¿Do you want to remove item ID {{id}}?",
     "CONFIRM": "Yes, Remove",
     "CANCEL": "Cancel"
+  },
+  "VALIDATOR": {
+    "FIELD-MANDATORY": "The {{field}} field is mandatory",
+    "FIELD-MORE-EQUAL-ONE": "The {{field}} field must be greater than or equal to {{min}}"
+  },
+  "TABLE-COLUMNS": {
+    "ID": "ID",
+    "DATE": "DATE",
+    "AMOUNT": "AMOUNT",
+    "STATUS": "STATUS",
+    "METHOD": "METHOD",
+    "PRODUCT": "PRODUCT",
+    "QUANTITY": "QUANTITY",
+    "PRICE": "PRICE"
+  },
+  "BUTTONS": {
+    "ADD-NEW": "ADD NEW",
+    "REMOVE": "REMOVE"
+  },
+  "PAGES-TITLE": {
+    "ORDER": "ORDER",
+    "PAYMENT": "PAYMENT",
+    "INCOME": "INCOME",
+    "DASHBOARD": "DASHBOARD"
   }
 }

@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { firstValueFrom } from 'rxjs';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ApiService } from '../../../services/api.service';
-import { Order } from '../../../models/order.model';
+import { Order } from '../../../shared/models/order.model';
 import { ConfirmModalComponent } from '../../modals/remove-confirm-modal/remove-confirm-modal.component';
 import { CreateItemModalComponent } from '../../modals/create-item-modal/create-item-modal.component';
 import { PaginatorComponent } from '../../../shared/paginator/paginator.component';
@@ -13,7 +13,7 @@ import { PaginatedComponent } from '../../../shared/base/paginated.component';
 @Component({
   selector: 'app-order-table',
   standalone: true,
-  imports: [CommonModule, NgbModule, FormsModule, PaginatorComponent],
+  imports: [CommonModule, NgbModule, FormsModule, PaginatorComponent, TranslateModule],
   templateUrl: './order-table.component.html',
   styleUrls: ['./order-table.component.scss'],
 })
@@ -41,16 +41,13 @@ export class OrderTableComponent extends PaginatedComponent<Order> {
   openOrderModal() {        
     const modalRef = this.modalService.open(CreateItemModalComponent);
     modalRef.componentInstance.title = 'New Order';
-    modalRef.componentInstance.fields = [
-      { name: 'product', label: 'Product', type: 'string' },
-      { name: 'quantity', label: 'quantity', type: 'number' },
-      { name: 'price', label: 'price', type: 'number' },
-      { name: 'status', label: 'status', type: 'string' }            
-    ];
-    modalRef.componentInstance.onSubmit = (data: Order) => firstValueFrom(this.api.createOrder(data));
+    modalRef.componentInstance.type = 'order';
+    modalRef.componentInstance.onSubmit = async (data: Order) => { 
+      await firstValueFrom(this.api.createOrder({ ...data, date: new Date() }));
+    }
     modalRef.result
       .then(result => {
-        if (result === true) {
+        if (result) {
           this.api.fetchOrders();
         }
       })

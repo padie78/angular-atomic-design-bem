@@ -1,9 +1,9 @@
 import { Component, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { firstValueFrom } from 'rxjs';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Payment } from '../../../models/payment.model';
+import { Payment } from '../../../shared/models/payment.model';
 import { ApiService } from '../../../services/api.service';
 import { ConfirmModalComponent } from '../../modals/remove-confirm-modal/remove-confirm-modal.component';
 import { CreateItemModalComponent } from '../../modals/create-item-modal/create-item-modal.component';
@@ -13,7 +13,7 @@ import { PaginatedComponent } from '../../../shared/base/paginated.component';
 @Component({
   selector: 'app-payment-table',
   standalone: true,
-  imports: [CommonModule, PaginatorComponent],
+  imports: [CommonModule, PaginatorComponent, TranslateModule],
   templateUrl: './payment-table.component.html',
   styleUrls: ['./payment-table.component.scss'],
 })
@@ -41,13 +41,11 @@ export class PaymentTableComponent extends PaginatedComponent<Payment> {
   openPaymentModal() {        
     const modalRef = this.modalService.open(CreateItemModalComponent);
     modalRef.componentInstance.title = 'New Payment';
-    modalRef.componentInstance.fields = [
-      { name: 'amount', label: 'Amount', type: 'number' }
-    ];
-    modalRef.componentInstance.onSubmit = (data: Payment) => firstValueFrom(this.api.createPayment(data));
+    modalRef.componentInstance.type = 'payment';
+    modalRef.componentInstance.onSubmit = async (data: Payment) => await firstValueFrom(this.api.createPayment(data));
     modalRef.result
       .then(result => {
-        if (result === true) {
+        if (result) {
           this.api.fetchPayments();
         }
       })
