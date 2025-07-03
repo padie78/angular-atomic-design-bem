@@ -9,5 +9,5 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./icon.component.scss']
 })
 export class IconComponent {
-  @Input() icon = ''; // Ej: 'fa fa-check' o 'bi bi-trash'
+  @Input() icon!: string; // Ej: 'fa fa-check' o 'bi bi-trash'
 }

@@ -1,35 +1,18 @@
-<button class="btn btn-success" (click)="openOrderModal()">
-   <th>{{ 'BUTTONS.ADD-NEW' | translate }}</th>
-</button>
+<app-icon-button
+  label="{{ 'BUTTONS.ADD-NEW' | translate }}"
+  icon="bi bi-plus-lg"
+  iconPosition="left"
+  className="btn btn-success"
+  (clicked)="openOrderModal()">
+</app-icon-button>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>{{ 'TABLE-COLUMNS.ID' | translate }}</th>
-      <th>{{ 'TABLE-COLUMNS.PRODUCT' | translate }}</th>
-      <th>{{ 'TABLE-COLUMNS.QUANTITY' | translate }}</th>
-      <th>{{ 'TABLE-COLUMNS.PRICE' | translate }}</th>
-      <th>{{ 'TABLE-COLUMNS.DATE' | translate }}</th>
-      <th>{{ 'TABLE-COLUMNS.STATUS' | translate }}</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let order of paginated">
-      <td>{{ order.id }}</td>
-      <td>{{ order.product }}</td>
-      <td>{{ order.quantity }}</td>
-      <td>{{ order.price | currency }}</td>
-      <td>{{ order.date ? (order.date | date:'shortDate') : '-' }}</td>
-      <td>{{ order.status || '-' }}</td>
-      <td class="d-flex justify-content-end">
-        <button class="btn btn-danger btn-sm" (click)="openDeleteModal(order)">
-          {{ 'BUTTONS.REMOVE' | translate }}
-        </button>        
-      </td>
-    </tr>
-  </tbody>
-</table>
+<app-data-table
+  [columns]="columns"
+  [data]="paginated"
+  [showActions]="true"
+  (delete)="openDeleteModal($event)">
+</app-data-table>
+
 <app-paginator
   [totalItems]="orders().length"
   [pageSize]="pageSize"

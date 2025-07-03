@@ -1,0 +1,8 @@
+<app-button 
+  [label]="label"
+  [className]="className"
+  (clicked)="clicked.emit()"
+>
+  <app-icon [icon]="icon"/>
+  {{ label }}
+</app-button>

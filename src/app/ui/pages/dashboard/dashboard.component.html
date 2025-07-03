@@ -2,18 +2,18 @@
   <section>
     <h2>{{ 'PAGES-TITLE.DASHBOARD' | translate }}</h2>
     <div class="stats">
-      <div class="card">
-        <h3>{{ 'PAGES-TITLE.ORDER' | translate }}</h3>
-        <p>{{ stats.totalOrders() }}</p>
-      </div>
-      <div class="card">
-        <h3>{{ 'PAGES-TITLE.PAYMENT' | translate }}</h3>
-        <p>{{ stats.totalPayments() }}</p>
-      </div>
-      <div class="card">
-        <h3>{{ 'PAGES-TITLE.INCOME' | translate }}</h3>
-        <p>{{ stats.totalAmount() | currency:'USD':'symbol':'1.2-2' }}</p>
-      </div>
+      <app-card 
+        [title]="'PAGES-TITLE.ORDER' | translate" 
+        [value]="stats.totalOrders()">
+      </app-card>
+      <app-card 
+        [title]="'PAGES-TITLE.PAYMENT' | translate" 
+        [value]="stats.totalPayments()">
+      </app-card>
+      <app-card 
+        [title]="'PAGES-TITLE.INCOME' | translate" 
+        [value]="(stats.totalAmount() | currency:'USD':'symbol':'1.2-2')!">
+      </app-card>            
     </div>
     <br>
     <div echarts [options]="chartOptions" class="demo-chart" style="height: 400px;"></div>

@@ -1,0 +1,19 @@
+.info-card {
+  padding: 1rem;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  &__title {
+    margin: 0;
+    font-size: 1rem;
+    color: #333;
+  }
+
+  &__value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #007bff;
+  }
+}

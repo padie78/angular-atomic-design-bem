@@ -9,16 +9,26 @@ import { ConfirmModalComponent } from '../../modals/remove-confirm-modal/remove-
 import { CreateItemModalComponent } from '../../modals/create-item-modal/create-item-modal.component';
 import { PaginatorComponent } from '../../../shared/paginator/paginator.component';
 import { PaginatedComponent } from '../../../shared/base/paginated.component';
+import { IconButtonComponent } from '../../molecules/icon-button/icon-button.component';
+import { ColumnDefinition } from '../../../shared/models/column-definition.model';
+import { DataTableComponent } from '../../molecules/data-table/data-table.component';
 
 @Component({
   selector: 'app-payment-table',
   standalone: true,
-  imports: [CommonModule, PaginatorComponent, TranslateModule],
+  imports: [CommonModule, PaginatorComponent, TranslateModule, DataTableComponent, IconButtonComponent],
   templateUrl: './payment-table.component.html',
   styleUrls: ['./payment-table.component.scss'],
 })
 export class PaymentTableComponent extends PaginatedComponent<Payment> {
   payments: Signal<Payment[]>;
+  columns: ColumnDefinition[] = [
+  { key: 'id', label: 'TABLE-COLUMNS.ID' },
+  { key: 'date', label: 'TABLE-COLUMNS.DATE', type: 'date' },
+  { key: 'amount', label: 'TABLE-COLUMNS.AMOUNT', type: 'currency' },
+  { key: 'status', label: 'TABLE-COLUMNS.STATUS' },
+  { key: 'method', label: 'TABLE-COLUMNS.METHOD' }
+];
 
   constructor(private api: ApiService, 
               private modalService: NgbModal,

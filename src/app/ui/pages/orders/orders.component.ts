@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { OrderTableComponent } from '../../../ui/organisms/order-table/order-table.component';
-import { BasePageComponent } from '../../../shared/layouts/base-page/base-page.component';
+import { BasePageComponent } from '../../layouts/base-page/base-page.component';
 
 @Component({
   selector: 'app-orders-page',

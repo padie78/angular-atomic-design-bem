@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CardWithActionsComponent } from './card-with-actions.component';
+import { IconButtonComponent } from './icon-button.component';
 
-describe('CardWithActionsComponent', () => {
-  let component: CardWithActionsComponent;
-  let fixture: ComponentFixture<CardWithActionsComponent>;
+describe('IconButtonComponentComponent', () => {
+  let component: IconButtonComponent;
+  let fixture: ComponentFixture<IconButtonComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CardWithActionsComponent]
+      imports: [IconButtonComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CardWithActionsComponent);
+    fixture = TestBed.createComponent(IconButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

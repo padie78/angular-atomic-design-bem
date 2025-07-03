@@ -1,0 +1,30 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th *ngFor="let col of columns">{{ col.label | translate }}</th>
+      <th *ngIf="showActions"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of data">
+      <td *ngFor="let col of columns">
+        <ng-container [ngSwitch]="col.type">
+          <ng-container *ngSwitchCase="'currency'">
+            {{ row[col.key] | currency }}
+          </ng-container>
+          <ng-container *ngSwitchCase="'date'">
+            {{ row[col.key] ? (row[col.key] | date: 'shortDate') : (col.defaultValue || '-') }}
+          </ng-container>
+          <ng-container *ngSwitchDefault>
+            {{ (row[col.key] ?? col.defaultValue) || '-' }}
+          </ng-container>
+        </ng-container>
+      </td>
+      <td *ngIf="showActions" class="d-flex justify-content-end">
+        <button class="btn btn-danger btn-sm" (click)="delete.emit(row)">
+          <i class="bi bi-x-circle"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

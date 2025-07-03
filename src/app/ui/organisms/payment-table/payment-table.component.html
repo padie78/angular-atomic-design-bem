@@ -1,33 +1,18 @@
-<button class="btn btn-success" (click)="openPaymentModal()">
-  {{ 'BUTTONS.ADD-NEW' | translate }}
-</button>
+<app-icon-button
+  label="{{ 'BUTTONS.ADD-NEW' | translate }}"
+  icon="bi bi-plus-lg"
+  iconPosition="left"
+  className="btn btn-success"
+  (clicked)="openPaymentModal()"
+></app-icon-button>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>{{ 'TABLE-COLUMNS.ID' | translate }}</th>
-      <th>{{ 'TABLE-COLUMNS.DATE' | translate }}</th>
-      <th>{{ 'TABLE-COLUMNS.AMOUNT' | translate }}</th>
-      <th>{{ 'TABLE-COLUMNS.STATUS' | translate }}</th>
-      <th>{{ 'TABLE-COLUMNS.METHOD' | translate }}</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let payment of paginated">
-      <td>{{ payment.id }}</td>
-      <td>{{ payment.date ? (payment.date | date:'shortDate') : '-' }}</td>
-      <td>{{ payment.amount | currency }}</td>
-      <td>{{ payment.status }}</td>
-      <td>{{ payment.method  }}</td>
-      <td class="d-flex justify-content-end">
-        <button class="btn btn-danger btn-sm" (click)="openDeleteModal(payment)">
-          {{ 'BUTTONS.REMOVE' | translate }}
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<app-data-table
+  [columns]="columns"
+  [data]="paginated"
+  [showActions]="true"
+  (delete)="openDeleteModal($event)">
+</app-data-table>
+
 <app-paginator
   [totalItems]="payments().length"
   [pageSize]="pageSize"
