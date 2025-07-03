@@ -1,3 +1,3 @@
-<select class="m-select" [ngModel]="selected" (ngModelChange)="onSelect($event)">
+<select class="form-select" [ngModel]="selected" (ngModelChange)="onSelect($event)">
   <option *ngFor="let o of options" [value]="o.value">{{o.label}}</option>
 </select>

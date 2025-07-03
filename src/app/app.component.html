@@ -2,14 +2,15 @@
   <div class="row ">
     <div class="d-flex justify-content-end">
         <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="menuDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                SELECT OPTION
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="menuDropdown">
-                <li><a class="dropdown-item" (click)="select('dashboard')">DASHBOARD</a></li>
-                <li><a class="dropdown-item" (click)="select('order')">ORDER</a></li>
-                <li><a class="dropdown-item" (click)="select('payment')">PAYMENT</a></li>
-            </ul>
+            <app-select-dropdown
+          [options]="[
+            { value: 'dashboard', label: 'Dashboard' },
+            { value: 'order', label: 'Order' },
+            { value: 'payment', label: 'Payment' }
+          ]"
+          [selected]="selectedSection"
+          (optionSelected)="select($event)">
+        </app-select-dropdown>   
         </div>        
     </div>
   </div>

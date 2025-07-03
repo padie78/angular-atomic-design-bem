@@ -1,18 +1,21 @@
 import { Component } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
+import { SelectDropdownComponent } from './ui/atoms/select-dropdown/select-dropdown.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, SelectDropdownComponent],
   templateUrl: './app.component.html'
 })
 export class AppComponent {
+  selectedSection = 'dashboard';
+  selectedItem: string | null = null;
 
   constructor(private router: Router){}
-
-  selectedItem: string | null = null;
+  
   select(item: string) {
+    console.log('item');
     this.selectedItem = item;
     console.log('Seleccionó:', item);
     // Aquí podés hacer la acción: abrir modal, cargar datos, etc.

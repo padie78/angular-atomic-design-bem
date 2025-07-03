@@ -7,16 +7,16 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './select-dropdown.component.html',
-  styleUrls: ['./select-dropdown.component.scss']
 })
 export class SelectDropdownComponent {
-  @Input() options: { label: string; value: any }[] = [];
-  @Input() selected: any = null;
-  @Output() selectedChange = new EventEmitter<any>();
+  @Input() options: { value: string; label: string }[] = [];
+  @Input() selected?: string;
 
-  onSelect(value: any) {
-    this.selected = value;
-    this.selectedChange.emit(value);
+  @Output() optionSelected = new EventEmitter<string>();
+
+  onSelect(value: string) {
+    this.optionSelected.emit(value);
   }
 }
+
 
