@@ -1,27 +1,38 @@
-# AngularAtomicDesignBem
+# Angular Atomic Design + BEM
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.20.
+This project is an Angular application structured using **Atomic Design** principles and the **BEM (Block Element Modifier)** CSS methodology. It serves as a clean and scalable foundation for building modern, modular front-end applications.
 
-## Development server
+## 🔗 Live Demo
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+👉 [View Live Demo](https://padie78.github.io/angular-atomic-design-bem/)  
 
-## Code scaffolding
+## 📐 Project Architecture
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+The codebase is organized based on Atomic Design:
 
-## Build
+- **Atoms** – Reusable basic components like buttons, inputs, icons.
+- **Molecules** – Small combinations of atoms (e.g., search bars, cards).
+- **Organisms** – More complex combinations (e.g., navbars, forms).
+- **Templates** – Structural layout without specific data.
+- **Pages** – Full views rendered by routes.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+All styling follows the **BEM naming convention** to promote maintainable and modular SCSS structure.
 
-## Running unit tests
+## 🚀 Getting Started
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Prerequisites
 
-## Running end-to-end tests
+- Node.js (v18 or later)
+- Angular CLI
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+# 1. Clone the repository
+git clone https://github.com/your-username/angular-atomic-design-bem.git
 
-## Further help
+# 2. Navigate to the project folder
+cd angular-atomic-design-bem
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+# 3. Install dependencies
+npm install
+
+# 4. Start the development server
+ng serve
